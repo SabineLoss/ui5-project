@@ -7,6 +7,7 @@ const applicationC2Path = path.join(__dirname, "..", "..", "fixtures", "applicat
 const applicationC3Path = path.join(__dirname, "..", "..", "fixtures", "application.c3");
 const applicationDPath = path.join(__dirname, "..", "..", "fixtures", "application.d");
 const applicationFPath = path.join(__dirname, "..", "..", "fixtures", "application.f");
+const applicationCyclePath = path.join(__dirname, "..", "..", "fixtures", "cyclic-deps", "application.cycle");
 const errApplicationAPath = path.join(__dirname, "..", "..", "fixtures", "err.application.a");
 
 test("AppA: project with collection dependency", (t) => {
@@ -45,6 +46,12 @@ test("AppD: project with dependency with unresolved optional dependency", (t) =>
 test("AppF: project with UI5-dependencies", (t) => {
 	return npmTranslator.generateDependencyTree(applicationFPath).then((parsedTree) => {
 		t.deepEqual(parsedTree, applicationFTree, "Parsed correctly");
+	});
+});
+
+test("AppCycle: cyclic dev deps", (t) => {
+	return npmTranslator.generateDependencyTree(applicationCyclePath).then((parsedTree) => {
+		t.deepEqual(parsedTree, applicationCycleTree, "Parsed correctly");
 	});
 });
 
@@ -224,4 +231,11 @@ const applicationFTree = {
 			dependencies: []
 		}
 	]
+};
+
+const applicationCycleTree = {
+	id: "application.cycle",
+	version: "1.0.0",
+	path: applicationCyclePath,
+	dependencies: [{}, {}]
 };

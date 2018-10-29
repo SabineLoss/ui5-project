@@ -1,0 +1,12 @@
+{
+  "name": "application.cycle",
+  "version": "1.0.0",
+  "description": "Simple SAPUI5 based application - Test for cyclic dependencies",
+  "main": "index.html",
+  "dependencies": {
+    "component.cycle.a": "file:../component.cycle.a"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
